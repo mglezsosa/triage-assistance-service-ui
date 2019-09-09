@@ -1,28 +1,50 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <NavBar v-if="currentUser"></NavBar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { authenticationService } from "./_services/authentication.service";
+import NavBar from './components/NavBar'
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
-  }
+      NavBar
+  },
+  data() {
+    return {
+      currentUser: null
+    }
+  },
+  created() {
+    authenticationService.currentUser.subscribe(x => (this.currentUser = x));
+  },
 }
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+body,
+input,
+textarea,
+button {
+  font-family: "Inter", Helvetica, Arial, sans-serif;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
 }
 </style>
