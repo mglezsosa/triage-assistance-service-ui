@@ -92,7 +92,10 @@ export default {
     },
     props: {
         selectedTriage: Object,
-        step: Number
+        step: {
+            type: Number,
+            default: 0
+        }
     },
     methods: {
         getStateStep: function (step) {
